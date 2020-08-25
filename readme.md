@@ -1,7 +1,7 @@
 Cách chay:
-
+```
 git clone https://github.com/hungdev/react-native-k26.git
-
+```
 
 xong cd vào folder vừa clone về
 
