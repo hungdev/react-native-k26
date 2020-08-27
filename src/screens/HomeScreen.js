@@ -4,6 +4,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
 import Item from '../components/Item'
+import CardView from '../components/CardView';
 
 const data = Array(10).fill('').map((e, i) => ({
   id: i + 1,
@@ -13,13 +14,14 @@ const data = Array(10).fill('').map((e, i) => ({
   date: '1/1/2001'
 }))
 export default function Home() {
-
   const renderItem = ({ item }) => (
-    <Item title={item.title} />
+    <CardView style={{ marginVertical: Metrics.baseMargin }}>
+      <Item title={item.title} />
+    </CardView>
   );
 
-  return (
-    <View>
+  const header = () => (
+    <CardView style={{ marginVertical: Metrics.baseMargin }}>
       <View style={{
       }}>
         <View style={{
@@ -47,8 +49,14 @@ export default function Home() {
           <Text>Photo</Text>
         </View>
       </View>
+    </CardView>
+  )
+
+  return (
+    <View style={{ backgroundColor: Colors.frost }}>
       <FlatList
         data={data}
+        ListHeaderComponent={header}
         renderItem={renderItem}
         keyExtractor={item => item.id}
       />
