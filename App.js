@@ -3,10 +3,11 @@ import { Text, View, StyleSheet } from 'react-native'
 import stylezzzzdddasads from './appstyles'
 import { variableStyle } from './appstyles'
 import Login from './src/screens/LoginScreen'
+import Home from './src/screens/HomeScreen'
 export default class App extends Component {
   render() {
     return (
-      <Login />
+      <Home />
       // <View style={{
       //   // flexDirection: 'row',
       //   // justifyContent: 'space-between',
