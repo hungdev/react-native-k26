@@ -5,20 +5,29 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
 import Item from '../components/Item'
 import CardView from '../components/CardView';
-
+const arrImages = [
+  'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
+  'https://static.wixstatic.com/media/7b6cb3_196895f06d2748d8b7dc708fe93a33fb~mv2_d_2202_1467_s_2.jpg/v1/fill/w_640,h_1214,al_c,q_85,usm_0.66_1.00_0.01/7b6cb3_196895f06d2748d8b7dc708fe93a33fb~mv2_d_2202_1467_s_2.webp',
+  'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/nature-quotes-1557340276.jpg?crop=0.666xw:1.00xh;0.168xw,0&resize=640:*',
+  'https://img.redbull.com/images/c_fill,g_auto,w_860,h_1075/q_auto,f_auto/redbullcom/2015/07/27/1331737542701_2/moon-hill-natural-bridge-in-china',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQfaw_YxzoXrXVleIt4FnHXnD48GknuJoWoyA&usqp=CAU'
+]
 const data = Array(10).fill('').map((e, i) => ({
   id: i + 1,
   content: 'zzzz',
   username: 'admin',
-  image: 'https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg',
+  image: arrImages[i] || 'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
   date: '1/1/2001'
 }))
 export default function Home() {
-  const renderItem = ({ item }) => (
-    <CardView style={{ marginVertical: Metrics.baseMargin }}>
-      <Item title={item.title} />
-    </CardView>
-  );
+  const renderItem = ({ item }) => {
+    console.log('item', item)
+    return (
+      <CardView style={{ marginVertical: Metrics.baseMargin }}>
+        <Item content={item.content} image={item.image} />
+      </CardView>
+    )
+  };
 
   const header = () => (
     <CardView style={{ marginVertical: Metrics.baseMargin }}>

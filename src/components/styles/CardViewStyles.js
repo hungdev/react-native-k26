@@ -7,7 +7,7 @@ export default StyleSheet.create({
     // borderColor: Colors.border,
     borderRadius: 7,
     borderBottomWidth: 0.5,
-    padding: Metrics.baseMargin,
+    // padding: Metrics.baseMargin,
     backgroundColor: Colors.card,
     borderColor: Colors.transparent,
     // marginBottom: Metrics.smallMargin
