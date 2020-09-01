@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import Login from './src/screens/LoginScreen'
 import Home from './src/screens/HomeScreen'
+import AppContainer from './src/appNavigation/'
 
 // setup redux
 import allReducers from './src/reducers';
@@ -38,8 +39,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          {/* <AppContainer /> */}
-          <Home />
+          <AppContainer />
         </PersistGate>
       </Provider>
     )
