@@ -1,14 +1,26 @@
 import React, { useState } from 'react'
 import { ScrollView, View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 
+import { login } from '../services/Api'
+
 export default function LoginScreen() {
-  const [inputValue, setInputValue] = useState({})
+  const [inputValue, setInputValue] = useState({
+    email: 'hello@cee.com',
+    password: '123456'
+  })
 
   const onChangeInput = (value, name) => {
     setInputValue(prev => ({ ...prev, [name]: value }))
   }
-  const onLogin = () => {
-    alert(JSON.stringify(inputValue))
+  const onLogin = async () => {
+    // alert(JSON.stringify(inputValue))
+    try {
+      const result = await login(inputValue)
+      console.log('result', result)
+    } catch (error) {
+      console.log(error)
+    }
+
   }
   return (
     <ScrollView style={{ flex: 1 }}>
@@ -23,13 +35,13 @@ export default function LoginScreen() {
         <TextInput
           style={styles.input}
           onChangeText={text => onChangeInput(text, 'email')}
-          value={inputValue}
+          value={inputValue.email}
           placeholder='Your Email'
         />
         <TextInput
           style={[styles.input, { marginTop: 20 }]}
           onChangeText={text => onChangeInput(text, 'password')}
-          value={inputValue}
+          value={inputValue.password}
           placeholder='Your Password'
         />
         <TouchableOpacity style={styles.btnLogin} onPress={onLogin}>

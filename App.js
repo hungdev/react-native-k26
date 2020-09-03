@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 
 import Login from './src/screens/LoginScreen'
 import Home from './src/screens/HomeScreen'
-import AppContainer from './src/appNavigation/'
+import AppContainer from './src/appNavigation/AppContainer'
 
 // setup redux
 import allReducers from './src/reducers';

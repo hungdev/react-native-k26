@@ -1,39 +1,27 @@
-import React from 'react'
-
+import React, { useEffect } from 'react'
 import { Button, View, Text, BackHandler, Alert } from 'react-native'
-
 import NavigationService from './NavigationService'
 import TopLevelNavigator from './Router'
 
-export default class AppWithNavigationState extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLeftDrawerOpened: false,
-      isRightDrawerOpened: false
+export default function AppContainer() {
+
+  useEffect(() => {
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+    return () => {
+      BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     }
-  }
+  }, [])
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
-
-  handleBackButton() {
+  const handleBackButton = () => {
     // Alert.alert('Bạn có chắc thoát ứng dụng không?')
     return true;
   }
 
-  render() {
-    return (
-      <TopLevelNavigator
-        ref={navigatorRef => {
-          NavigationService.setTopLevelNavigator(navigatorRef)
-        }}
-      />
-    )
-  }
+  return (
+    <TopLevelNavigator
+      ref={navigatorRef => {
+        NavigationService.setTopLevelNavigator(navigatorRef)
+      }}
+    />
+  )
 }
