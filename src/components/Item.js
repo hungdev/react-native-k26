@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, Image, Dimensions } from 'react-native'
+import { View, Text, FlatList, Image, Dimensions, TouchableOpacity } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
@@ -8,8 +8,9 @@ import FitImage from 'react-native-fit-image';
 import Lightbox from 'react-native-lightbox';
 // https://stackoverflow.com/questions/39631895/how-to-set-image-width-to-be-100-and-height-to-be-auto-in-react-native
 export default function Item(props) {
+  const { onPress } = props
   return (
-    <View>
+    <TouchableOpacity onPress={onPress}>
       <View style={{ flexDirection: 'row', padding: Metrics.baseMargin }}>
         <Image source={require('../images/ins.png')}
           style={{
@@ -85,6 +86,6 @@ export default function Item(props) {
           <Text>xxx</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }

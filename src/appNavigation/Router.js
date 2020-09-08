@@ -4,16 +4,42 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen'
+import ProfileScreen from '../screens/ProfileScreen'
 import LoginScreen from '../screens/LoginScreen'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+function HomeStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Article"
+        component={HomeScreen}
+        options={({ route }) => ({
+          title: `Article by ${route.params?.author ?? 'Unknown'}`,
+        })}
+        initialParams={{ author: 'Gandalf' }}
+      />
+      <Stack.Screen
+        name="NewsFeed"
+        component={HomeScreen}
+        options={{ title: 'Feed' }}
+      />
+      <Stack.Screen
+        name="Albums"
+        component={ProfileScreen}
+        options={{ title: 'Albums' }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 function TabHome() {
   return (
     <Tab.Navigator>
-      {/* <Tab.Screen name="Settings" component={LoginScreen} /> */}
-      <Tab.Screen name="Home" component={HomeScreen} />
+      <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
@@ -26,7 +52,7 @@ function ContainerStack() {
     <Stack.Navigator>
       {!isoke ? (
         <>
-          <Stack.Screen name="SignIn" component={LoginScreen} />
+          <Stack.Screen name="SignIn" component={LoginScreen} options={{ headerShown: false }} />
           {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}
           {/* <Stack.Screen name="ResetPassword" component={ResetPassword} /> */}
         </>
@@ -38,8 +64,8 @@ function ContainerStack() {
               component={TabHome}
             // options={{ headerShown: false }}
             />
-            {/* <Stack.Screen name="Notifications" component={ProfileScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
+            {/* <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Setting" component={SettingScreen} /> */}
           </>
         )

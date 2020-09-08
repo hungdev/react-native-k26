@@ -19,17 +19,12 @@ const data = Array(10).fill('').map((e, i) => ({
   image: arrImages[i] || 'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
   date: '1/1/2001'
 }))
-export default function Home(props) {
-
-  const onMove = () => {
-    alert('ok')
-    // props.navigation.navigate('Albums')
-  }
+export default function Home() {
   const renderItem = ({ item }) => {
     console.log('item', item)
     return (
       <CardView style={{ marginVertical: Metrics.baseMargin }}>
-        <Item content={item.content} image={item.image} onPress={onMove} />
+        <Item content={item.content} image={item.image} />
       </CardView>
     )
   };
