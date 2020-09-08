@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { ScrollView, View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
-
+import { setAuth } from '../actions/authAction'
 import { login } from '../services/Api'
+import { connect, useSelector, useDispatch } from 'react-redux';
 
 export default function LoginScreen() {
+  const store = useSelector(store => store);
+  // console.log('store2', store.auth.token);
+  const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState({
     email: 'hello@cee.com',
     password: '123456'
@@ -17,6 +21,10 @@ export default function LoginScreen() {
     try {
       const result = await login(inputValue)
       console.log('result', result)
+      // dispatch({type: 'abcc', data: 'aaa'})
+      dispatch(setAuth(result.data.token))
+      // const isAuth = store.auth.token
+      // console.log('store1', store.auth.token);
     } catch (error) {
       console.log(error)
     }

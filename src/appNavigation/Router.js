@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Button, View, Text } from 'react-native';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -45,12 +46,12 @@ function TabHome() {
 }
 
 function ContainerStack() {
-  // const store = useSelector(store => store);
-  const isoke = true
-  // console.log('store', store.auth.user);
+  const store = useSelector(store => store);
+  const isAuth = store.auth.token
+  console.log('store', store.auth.token);
   return (
     <Stack.Navigator>
-      {!isoke ? (
+      {!isAuth ? (
         <>
           <Stack.Screen name="SignIn" component={LoginScreen} options={{ headerShown: false }} />
           {/* <Stack.Screen name="SignUp" component={SignUpScreen} /> */}

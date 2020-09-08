@@ -10,6 +10,8 @@ const instance = axios.create({
 });
 
 export const login = (params) => {
-  console.log('params', params)
   return instance.post('/login', params)
+}
+export const getAllPost = (params) => {
+  return instance.get('/get-all-post', { params: params })
 }
