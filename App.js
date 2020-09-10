@@ -31,7 +31,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, allReducers);
 
-let store = createStore(persistedReducer);
+export let store = createStore(persistedReducer);
 let persistor = persistStore(store);
 
 export default class App extends Component {

@@ -28,7 +28,6 @@ export default function Home(props) {
     const getPosts = async () => {
       const result = await getAllPost()
       setData(result.data.data)
-      console.log('result111', result)
     }
     getPosts()
   }, [])

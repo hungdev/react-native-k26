@@ -13,7 +13,6 @@ import moment from 'moment'
 // https://stackoverflow.com/questions/39631895/how-to-set-image-width-to-be-100-and-height-to-be-auto-in-react-native
 export default function Item(props) {
   const { onPress, data: { content, created_date, likes, user_id } } = props
-  console.log('props', props.data)
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={{ flexDirection: 'row', padding: Metrics.baseMargin }}>

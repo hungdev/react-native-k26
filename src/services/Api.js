@@ -1,4 +1,6 @@
 import axios from 'axios'
+// import { create } from 'apisauce'
+import { store } from '../../App';
 
 const instance = axios.create({
   baseURL: 'http://social.hungvu.net',
@@ -9,9 +11,18 @@ const instance = axios.create({
   timeout: 60000
 });
 
+instance.interceptors.request.use((config) => {
+  const { token } = store.getState().auth;
+  return { ...config, headers: { ...config.headers, Authorization: `Bearer ${token}` } };
+});
+
 export const login = (params) => {
   return instance.post('/login', params)
 }
 export const getAllPost = (params) => {
   return instance.get('/get-all-post', { params: params })
+}
+
+export const createPost = (params) => {
+  return instance.post('/create-post', params)
 }
