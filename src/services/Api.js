@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { create } from 'apisauce'
 import { store } from '../../App';
 
 const instance = axios.create({
@@ -23,6 +22,6 @@ export const getAllPost = (params) => {
   return instance.get('/get-all-post', { params: params })
 }
 
-export const createPost = (params) => {
-  return instance.post('/create-post', params)
+export function createPost(params) {
+  return instance.post(`/create-post`, params);
 }
