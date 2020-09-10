@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import LoginScreen from '../screens/LoginScreen'
+import PostScreen from '../screens/PostScreen'
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -15,7 +16,7 @@ function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Article"
+        name="NewFeed"
         component={HomeScreen}
         options={({ route }) => ({
           title: `Article by ${route.params?.author ?? 'Unknown'}`,
@@ -23,8 +24,8 @@ function HomeStack() {
         initialParams={{ author: 'Gandalf' }}
       />
       <Stack.Screen
-        name="NewsFeed"
-        component={HomeScreen}
+        name="PostScreen"
+        component={PostScreen}
         options={{ title: 'Feed' }}
       />
       <Stack.Screen

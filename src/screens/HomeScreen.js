@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, FlatList } from 'react-native'
+import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
@@ -46,10 +46,16 @@ export default function Home(props) {
     )
   };
 
+  const onCreatePost = () => {
+    // alert('ok')
+    props.navigation.navigate('PostScreen')
+  }
+
   const header = () => (
     <CardView style={{ marginVertical: Metrics.baseMargin }}>
-      <View style={{
-      }}>
+      <TouchableOpacity
+        onPress={onCreatePost}
+      >
         <View style={{
           flexDirection: 'row',
           padding: Metrics.baseMargin,
@@ -74,7 +80,7 @@ export default function Home(props) {
           <AntDesign name="instagram" size={30} color={Colors.facebook} />
           <Text>Photo</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </CardView>
   )
 
@@ -84,7 +90,7 @@ export default function Home(props) {
         data={data}
         ListHeaderComponent={header}
         renderItem={renderItem}
-        keyExtractor={item => item._id}
+        keyExtractor={item => item._id.toString()}
       />
     </View>
 
