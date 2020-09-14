@@ -5,7 +5,9 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
 import Item from '../components/Item'
 import CardView from '../components/CardView';
-import { getAllPost } from '../services/Api'
+import { getAllPost, getMe } from '../services/Api'
+import { setMe } from '../actions/authAction'
+import { useSelector, useDispatch } from 'react-redux';
 
 const arrImages = [
   'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
@@ -22,14 +24,24 @@ const arrImages = [
 //   date: '1/1/2001'
 // }))
 export default function Home(props) {
+  const dispatch = useDispatch()
   const [data, setData] = useState([])
 
   useEffect(() => {
     const getPosts = async () => {
       const result = await getAllPost()
+      console.log('result', result)
       setData(result.data.data)
     }
     getPosts()
+  }, [])
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const result = await getMe()
+      dispatch(setMe(result.data.data))
+    }
+    getUserInfo()
   }, [])
 
   const onMove = () => {

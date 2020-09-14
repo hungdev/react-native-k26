@@ -12,3 +12,10 @@ export const removeAuth = () => {
     type: actionTypes.REMOVE_AUTH,
   };
 };
+
+export const setMe = (user) => {
+  return {
+    type: actionTypes.SET_ME,
+    user
+  }
+}

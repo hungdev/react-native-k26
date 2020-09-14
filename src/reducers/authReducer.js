@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialAuthState = {
   user: 'hello@cee',
-  token: ''
+  token: '',
+  me: null
 };
 
 export default (state = initialAuthState, action) => {
@@ -16,6 +17,8 @@ export default (state = initialAuthState, action) => {
           };
        */
       return { ...state, token: action.token };
+    case actionTypes.SET_ME:
+      return { ...state, me: action.user }
     case actionTypes.REMOVE_AUTH:
       return initialAuthState
 

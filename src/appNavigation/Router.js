@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import LoginScreen from '../screens/LoginScreen'
 import PostScreen from '../screens/PostScreen'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -15,6 +16,7 @@ const Stack = createStackNavigator();
 function HomeStack() {
   return (
     <Stack.Navigator>
+
       <Stack.Screen
         name="NewFeed"
         component={HomeScreen}
@@ -39,7 +41,28 @@ function HomeStack() {
 
 function TabHome() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused
+              ? 'ios-information-circle'
+              : 'ios-information-circle-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'beer' : 'beer-outline';
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }}
+    >
       <Tab.Screen name="Home" component={HomeStack} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
@@ -64,7 +87,7 @@ function ContainerStack() {
             <Stack.Screen
               name="Home"
               component={TabHome}
-            // options={{ headerShown: false }}
+              options={{ headerShown: false }}
             />
             <Stack.Screen name="Profile" component={ProfileScreen} />
             {/* <Stack.Screen name="Profile" component={ProfileScreen} />

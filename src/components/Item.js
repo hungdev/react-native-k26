@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, FlatList, Image, Dimensions, TouchableOpacity } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,13 +8,35 @@ import FitImage from 'react-native-fit-image';
 // import Lightbox from 'react-native-lightbox';
 import { imageProcess } from '../utils'
 import moment from 'moment'
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { updatePost } from '../services/Api'
 
 
 // https://stackoverflow.com/questions/39631895/how-to-set-image-width-to-be-100-and-height-to-be-auto-in-react-native
 export default function Item(props) {
-  const { onPress, data: { content, created_date, likes, user_id } } = props
+  const [item, setItem] = useState(props.data)
+  const store = useSelector(store => store);
+  const user = store.auth.me
+  // console.log('user', user)
+
+  const onLike = async () => {
+    const cloneItemState = { ...item }
+    const checkIncludeLike = cloneItemState.likes.includes(user._id)
+    const newArrLike = checkIncludeLike ? cloneItemState.likes.filter(e => e !== user._id) : cloneItemState.likes.concat([user._id])
+
+    try {
+      const result = await updatePost({
+        postId: item._id,
+        like: user._id
+      })
+      console.log('result', result)
+      setItem(prev => ({ ...prev, likes: newArrLike }))
+    } catch (error) {
+      console.log('error', error)
+    }
+  }
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity>
       <View style={{ flexDirection: 'row', padding: Metrics.baseMargin }}>
         <Image source={require('../images/ins.png')}
           style={{
@@ -26,15 +48,15 @@ export default function Item(props) {
           <Text style={{
             fontSize: Fonts.size.regular,
             fontWeight: 'bold'
-          }}>{user_id.user_name}</Text>
-          <Text style={{}}>{moment(created_date).format('DD/MM/YYYY hh:mm')}</Text>
+          }}>{props.data.user_id.user_name}</Text>
+          <Text style={{}}>{moment(props.data.created_date).format('DD/MM/YYYY hh:mm')}</Text>
         </View>
       </View>
       <View style={{
         flexDirection: 'row',
         padding: Metrics.baseMargin
       }}>
-        <Text>{content}</Text>
+        <Text>{props.data.content}</Text>
       </View>
       <View
         style={{
@@ -80,12 +102,14 @@ export default function Item(props) {
       <View style={{
         flexDirection: 'row', alignItems: 'center',
         justifyContent: 'space-between',
-        margin: Metrics.baseMargin
+        margin: Metrics.baseMargin,
       }}>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <TouchableOpacity
+          onPress={onLike}
+          style={{ flexDirection: 'row', alignItems: 'center' }}>
           <AntDesign name="like1" size={30} color={Colors.facebook} />
-          <Text> {likes.length} Likes</Text>
-        </View>
+          <Text> {item.likes.length}Likes</Text>
+        </TouchableOpacity>
         <View>
           <Text>xxx</Text>
         </View>

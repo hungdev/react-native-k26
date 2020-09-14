@@ -23,5 +23,13 @@ export const getAllPost = (params) => {
 }
 
 export function createPost(params) {
-  return instance.post(`/create-post`, params);
+  return instance.post('/create-post', params);
+}
+
+export function getMe(params) {
+  return instance.get(`/get-me`, params);
+}
+
+export function updatePost(params) {
+  return instance.put(`/update-post`, params);
 }
