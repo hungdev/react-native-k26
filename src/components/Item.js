@@ -18,6 +18,7 @@ export default function Item(props) {
   const store = useSelector(store => store);
   const user = store.auth.me
   // console.log('user', user)
+  const isLiked = item.likes.includes(user._id)
 
   const onLike = async () => {
     const cloneItemState = { ...item }
@@ -107,7 +108,7 @@ export default function Item(props) {
         <TouchableOpacity
           onPress={onLike}
           style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <AntDesign name="like1" size={30} color={Colors.facebook} />
+          <AntDesign name={isLiked ? "like1" : 'like2'} size={30} color={isLiked ? Colors.facebook : 'black'} />
           <Text> {item.likes.length}Likes</Text>
         </TouchableOpacity>
         <View>

@@ -67,6 +67,9 @@ export default function CreatePost({ navigation }) {
 
     try {
       const result = await createPost(form)
+      if (result.status === 200) {
+        navigation.pop()
+      }
       console.log('result1111', result)
     } catch (error) {
       console.log('error', error)
