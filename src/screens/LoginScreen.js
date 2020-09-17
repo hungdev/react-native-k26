@@ -9,7 +9,7 @@ export default function LoginScreen() {
   // console.log('store2', store.auth.token);
   const dispatch = useDispatch()
   const [inputValue, setInputValue] = useState({
-    email: 'hello@cee.com',
+    email: 'cee@cee.com',
     password: '123456'
   })
 

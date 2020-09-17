@@ -8,6 +8,7 @@ import HomeScreen from '../screens/HomeScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import LoginScreen from '../screens/LoginScreen'
 import PostScreen from '../screens/PostScreen'
+import BookmarkScreen from '../screens/BookmarkScreen'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
@@ -38,6 +39,22 @@ function HomeStack() {
     </Stack.Navigator>
   );
 }
+function BookmarkStack() {
+  return (
+    <Stack.Navigator>
+
+      <Stack.Screen
+        name="Bookmark"
+        component={BookmarkScreen}
+        options={({ route }) => ({
+          title: `Article by ${route.params?.author ?? 'Unknown'}`,
+        })}
+        initialParams={{ author: 'Gandalf' }}
+      />
+
+    </Stack.Navigator>
+  );
+}
 
 function TabHome() {
   return (
@@ -64,6 +81,7 @@ function TabHome() {
       }}
     >
       <Tab.Screen name="Home" component={HomeStack} />
+      <Tab.Screen name="Bookmark" component={BookmarkStack} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );

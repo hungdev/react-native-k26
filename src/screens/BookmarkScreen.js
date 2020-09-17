@@ -8,7 +8,6 @@ import CardView from '../components/CardView';
 import { getAllPost, getMe } from '../services/Api'
 import { setMe } from '../actions/authAction'
 import { useSelector, useDispatch } from 'react-redux';
-import Reactotron from 'reactotron-react-native'
 
 const arrImages = [
   'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
@@ -98,12 +97,7 @@ export default function Home(props) {
 
   return (
     <View style={{ backgroundColor: Colors.frost }}>
-      <FlatList
-        data={data}
-        ListHeaderComponent={header}
-        renderItem={renderItem}
-        keyExtractor={item => item._id.toString()}
-      />
+      <Text>bookmark</Text>
     </View>
 
 
