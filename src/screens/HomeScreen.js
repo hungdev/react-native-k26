@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, Image, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Metrics, Fonts, Colors } from '../themes';
@@ -27,15 +27,21 @@ const arrImages = [
 export default function Home(props) {
   const dispatch = useDispatch()
   const [data, setData] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isRefresh, setIsRefresh] = useState(false)
+  const [canLoadMore, setCanLoadMore] = useState(false)
+  const [pagination, setPagination] = useState({ limit: 5, skip: 0 })
 
   useEffect(() => {
     const getPosts = async () => {
-      const result = await getAllPost()
-      console.log('result', result)
-      setData(result.data.data)
+      setIsLoading(true)
+      const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
+      setData(prev => ([...prev, ...result.data.data]))
+      setIsRefresh(false)
+      setIsLoading(false)
     }
     getPosts()
-  }, [])
+  }, [isRefresh, pagination.limit, pagination.skip])
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -59,8 +65,14 @@ export default function Home(props) {
   };
 
   const onCreatePost = () => {
-    // alert('ok')
     props.navigation.navigate('PostScreen')
+  }
+
+
+  const handleLoadMore = () => {
+    if (canLoadMore) {
+      setPagination(prev => ({ ...prev, skip: prev.skip + 5 }))
+    }
   }
 
   const header = () => (
@@ -96,6 +108,22 @@ export default function Home(props) {
     </CardView>
   )
 
+  const footer = () => {
+    if (!isLoading) return null;
+
+    return (
+      <View
+        style={{
+          paddingVertical: 20,
+          borderTopWidth: 1,
+          borderColor: "#CED0CE",
+        }}
+      >
+        <ActivityIndicator animating size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <View style={{ backgroundColor: Colors.frost }}>
       <FlatList
@@ -103,6 +131,14 @@ export default function Home(props) {
         ListHeaderComponent={header}
         renderItem={renderItem}
         keyExtractor={item => item._id.toString()}
+        // pull to rf
+        onRefresh={() => setIsRefresh(true)}
+        refreshing={isRefresh}
+        // loadmore
+        onEndReached={handleLoadMore}
+        onEndReachedThreshold={0.5}
+        onMomentumScrollBegin={() => setCanLoadMore(true)}
+        ListFooterComponent={footer}
       />
     </View>
 
