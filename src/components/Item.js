@@ -10,7 +10,12 @@ import { imageProcess } from '../utils'
 import moment from 'moment'
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { updatePost } from '../services/Api'
-
+import {
+  Menu,
+  MenuOptions,
+  MenuOption,
+  MenuTrigger,
+} from 'react-native-popup-menu';
 
 // https://stackoverflow.com/questions/39631895/how-to-set-image-width-to-be-100-and-height-to-be-auto-in-react-native
 export default function Item(props) {
@@ -36,6 +41,10 @@ export default function Item(props) {
       console.log('error', error)
     }
   }
+
+  const onDeletePost = () => {
+
+  }
   return (
     <TouchableOpacity>
       <View style={{ flexDirection: 'row', padding: Metrics.baseMargin }}>
@@ -45,12 +54,24 @@ export default function Item(props) {
             marginRight: Metrics.baseMargin
           }}
         />
-        <View>
+        <View style={{ flex: 1 }}>
           <Text style={{
             fontSize: Fonts.size.regular,
-            fontWeight: 'bold'
+            fontWeight: 'bold',
           }}>{props.data.user_id.user_name}</Text>
           <Text style={{}}>{moment(props.data.created_date).format('DD/MM/YYYY hh:mm')}</Text>
+        </View>
+        <View>
+          <Menu>
+            <MenuTrigger text='...' />
+            <MenuOptions>
+              <MenuOption onSelect={() => alert(`Save`)} text='Save' style={{ marginBottom: 10 }} />
+              <MenuOption onSelect={onDeletePost} >
+                <Text style={{ color: 'red' }}>Delete</Text>
+              </MenuOption>
+            </MenuOptions>
+          </Menu>
+
         </View>
       </View>
       <View style={{

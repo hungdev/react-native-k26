@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import Login from './src/screens/LoginScreen'
 import Home from './src/screens/HomeScreen'
 import AppContainer from './src/appNavigation/AppContainer'
+import { MenuProvider } from 'react-native-popup-menu';
 
 // setup redux
 import allReducers from './src/reducers';
@@ -39,7 +40,9 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <AppContainer />
+          <MenuProvider>
+            <AppContainer />
+          </MenuProvider>
         </PersistGate>
       </Provider>
     )
