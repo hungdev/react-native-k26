@@ -34,10 +34,11 @@ export default function Home(props) {
   const [pagination, setPagination] = useState(initPagination)
 
   useEffect(() => {
+    console.log('11111')
     const getPosts = async () => {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
-      setData(prev => ([...prev, ...result.data.data]))
+      !isRefresh && setData(prev => ([...prev, ...result.data.data]))
       setIsRefresh(false)
       setIsLoading(false)
     }
@@ -46,6 +47,7 @@ export default function Home(props) {
 
   useEffect(() => {
     const getPosts = async () => {
+      console.log('2222')
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(result.data.data)
