@@ -38,6 +38,7 @@ export default function Home(props) {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(prev => ([...prev, ...result.data.data]))
+      setIsRefresh(false)
       setIsLoading(false)
     }
     getPosts()
@@ -47,7 +48,7 @@ export default function Home(props) {
     const getPosts = async () => {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
-      setData(prev => ([...result.data.data]))
+      setData(result.data.data)
       setIsRefresh(false)
       setIsLoading(false)
     }
