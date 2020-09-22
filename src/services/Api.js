@@ -46,3 +46,7 @@ export function getMe(params) {
 export function updatePost(params) {
   return instance.put(`/update-post`, params);
 }
+
+export function deletePost(params) {
+  return instance.put(`/post-delete-many`, { data: params });
+}
