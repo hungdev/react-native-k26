@@ -19,7 +19,7 @@ instance.interceptors.request.use((config) => {
 // Add a response interceptor
 instance.interceptors.response.use((response) => response, (error) => {
   // Do something with response error
-  if (error.response.status === 401) {
+  if (error?.response?.status === 401) {
     // window.alert('Something went wrong!. Please login again');  //eslint-disable-line
     // window.location.reload();
     store.dispatch(removeAuth());

@@ -22,8 +22,7 @@ export default function Item(props) {
   const [item, setItem] = useState(props.data)
   const store = useSelector(store => store);
   const user = store.auth.me
-  // console.log('user', user)
-  const isLiked = item.likes.includes(user._id)
+  const isLiked = item?.likes?.includes(user?._id)
 
   const onLike = async () => {
     const cloneItemState = { ...item }

@@ -24,24 +24,35 @@ const arrImages = [
 //   image: arrImages[i] || 'https://therightsofnature.org/wp-content/uploads/2018/01/turkey-3048299_1920-1366x550.jpg',
 //   date: '1/1/2001'
 // }))
+const initPagination = { limit: 5, skip: 0 }
 export default function Home(props) {
   const dispatch = useDispatch()
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isRefresh, setIsRefresh] = useState(false)
   const [canLoadMore, setCanLoadMore] = useState(false)
-  const [pagination, setPagination] = useState({ limit: 5, skip: 0 })
+  const [pagination, setPagination] = useState(initPagination)
 
   useEffect(() => {
     const getPosts = async () => {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(prev => ([...prev, ...result.data.data]))
-      setIsRefresh(false)
       setIsLoading(false)
     }
     getPosts()
-  }, [isRefresh, pagination.limit, pagination.skip])
+  }, [pagination.limit, pagination.skip])
+
+  useEffect(() => {
+    const getPosts = async () => {
+      setIsLoading(true)
+      const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
+      setData(prev => ([...result.data.data]))
+      setIsRefresh(false)
+      setIsLoading(false)
+    }
+    isRefresh && getPosts()
+  }, [isRefresh])
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -73,6 +84,11 @@ export default function Home(props) {
     if (canLoadMore) {
       setPagination(prev => ({ ...prev, skip: prev.skip + 5 }))
     }
+  }
+
+  const onRefresh = () => {
+    setPagination(initPagination)
+    setIsRefresh(true)
   }
 
   const header = () => (
@@ -132,7 +148,7 @@ export default function Home(props) {
         renderItem={renderItem}
         keyExtractor={item => item._id.toString()}
         // pull to rf
-        onRefresh={() => setIsRefresh(true)}
+        onRefresh={onRefresh}
         refreshing={isRefresh}
         // loadmore
         onEndReached={handleLoadMore}
