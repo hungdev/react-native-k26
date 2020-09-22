@@ -38,11 +38,11 @@ export default function Home(props) {
     const getPosts = async () => {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
-      !isRefresh && setData(prev => ([...prev, ...result.data.data]))
+      setData(prev => ([...prev, ...result.data.data]))
       setIsRefresh(false)
       setIsLoading(false)
     }
-    getPosts()
+    !isRefresh && getPosts()
   }, [pagination.limit, pagination.skip])
 
   useEffect(() => {
