@@ -29,7 +29,7 @@ instance.interceptors.response.use((response) => response, (error) => {
 });
 
 export const login = (params) => {
-  return instance.post('/login', params)
+  return instance.post('/login', params) // params => {id: 1,..}
 }
 export const getAllPost = (params) => {
   return instance.get('/get-all-post', { params: params })
@@ -48,5 +48,6 @@ export function updatePost(params) {
 }
 
 export function deletePost(params) {
-  return instance.delete(`/post-delete-many`, { data: params });
+  console.log('params', params)
+  return instance.delete(`/post-delete-many`, params);
 }

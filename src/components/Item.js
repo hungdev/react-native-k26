@@ -9,7 +9,7 @@ import FitImage from 'react-native-fit-image';
 import { imageProcess } from '../utils'
 import moment from 'moment'
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { updatePost } from '../services/Api'
+import { updatePost, deletePost } from '../services/Api'
 import {
   Menu,
   MenuOptions,
@@ -41,8 +41,14 @@ export default function Item(props) {
     }
   }
 
-  const onDeletePost = () => {
-
+  const onDeletePost = async () => {
+    if (user._id === item.user_id._id) {
+      const result = await deletePost({ ids: [item._id] })
+      console.log('delete', result)
+      if (result.status === 200) {
+        props.onDelete()
+      }
+    }
   }
   return (
     <TouchableOpacity>

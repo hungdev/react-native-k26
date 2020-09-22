@@ -31,6 +31,7 @@ export default function Home(props) {
   const [isLoading, setIsLoading] = useState(false)
   const [isRefresh, setIsRefresh] = useState(false)
   const [canLoadMore, setCanLoadMore] = useState(false)
+  const [isDelete, setIsDelete] = useState(false)
   const [pagination, setPagination] = useState(initPagination)
 
   useEffect(() => {
@@ -39,23 +40,23 @@ export default function Home(props) {
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(prev => ([...prev, ...result.data.data]))
-      setIsRefresh(false)
       setIsLoading(false)
+
     }
     !isRefresh && getPosts()
   }, [pagination.limit, pagination.skip])
 
   useEffect(() => {
     const getPosts = async () => {
-      console.log('2222')
       setIsLoading(true)
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(result.data.data)
       setIsRefresh(false)
       setIsLoading(false)
+      setIsDelete(false)
     }
-    isRefresh && getPosts()
-  }, [isRefresh])
+    (isRefresh || isDelete) && getPosts()
+  }, [isRefresh, isDelete])
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -73,10 +74,12 @@ export default function Home(props) {
     // console.log('item', item)
     return (
       <CardView style={{ marginVertical: Metrics.baseMargin }}>
-        <Item data={item} onPress={onMove} />
+        <Item data={item} onPress={onMove} onDelete={onDelete} />
       </CardView>
     )
   };
+
+  const onDelete = () => setIsDelete(true)
 
   const onCreatePost = () => {
     props.navigation.navigate('PostScreen')
