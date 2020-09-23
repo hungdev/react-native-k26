@@ -41,7 +41,6 @@ export default function Home(props) {
       const result = await getAllPost({ limit: pagination.limit, skip: pagination.skip })
       setData(prev => ([...prev, ...result.data.data]))
       setIsLoading(false)
-
     }
     !isRefresh && getPosts()
   }, [pagination.limit, pagination.skip])
@@ -154,6 +153,7 @@ export default function Home(props) {
         renderItem={renderItem}
         keyExtractor={item => item._id.toString()}
         // pull to rf
+        // https://reactnative.dev/docs/refreshcontrol
         onRefresh={onRefresh}
         refreshing={isRefresh}
         // loadmore

@@ -69,6 +69,8 @@ function TabHome() {
               : 'ios-information-circle-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'beer' : 'beer-outline';
+          } else if (route.name === 'Bookmark') {
+            iconName = focused ? 'beer' : 'beer-outline';
           }
 
           // You can return any component that you like here!

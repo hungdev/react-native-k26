@@ -49,5 +49,5 @@ export function updatePost(params) {
 
 export function deletePost(params) {
   console.log('params', params)
-  return instance.delete(`/post-delete-many`, params);
+  return instance.delete(`/post-delete-many`, { data: params });
 }
